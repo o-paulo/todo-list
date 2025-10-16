@@ -1,7 +1,7 @@
 <?php
-include "db.php";
-
 session_start();
+
+include "db.php";
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +51,6 @@ session_start();
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         <?php
         // Verifica se a nossa "bandeira" da sessão existe e é verdadeira
@@ -68,6 +67,7 @@ session_start();
         }
         ?>
     </script>
+
 </body>
 
 </html>
