@@ -1,0 +1,24 @@
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: #F0F8FF !important;
+}
+
+.grid {
+    margin-top: 100px;
+}
+
+.page-title {
+    font-family: "Roboto Slab", sans-serif;
+    margin-bottom: 100px;
+}
+
+.container {
+    width: 880px !important;
+}
+
+.btn-primary {
+    background-color: #6A89CC !important;
+}
