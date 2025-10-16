@@ -1,25 +1,45 @@
 <?php
 
-$conn = require_once __DIR__ . '/database.php';
+// model_tarefas.php
 
-// Lógica de processamento do formulário
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+/**
+ * Insere uma nova tarefa no banco de dados.
+ *
+ * @param mysqli $conn O objeto de conexão com o banco de dados.
+ * @param string $titulo O título da tarefa.
+ * @param string $descricao A descrição da tarefa.
+ * @return bool Retorna true se a inserção for bem-sucedida, false caso contrário.
+ */
 
-    $titulo = $_POST["titulo"] ?? "";
-    $descricao = $_POST["descricao"] ?? "";
-
+function criarTarefa(mysqli $conn, string $titulo, string $descricao): bool
+{
     $stmt = $conn->prepare("INSERT INTO tarefas (titulo, descricao) VALUES (?, ?)");
     $stmt->bind_param("ss", $titulo, $descricao);
+    
+    $resultado = $stmt->execute();
+    
+    $stmt->close();
+    
+    return $resultado;
+}
 
-    // Se a query for executada com sucesso
-    if ($stmt->execute()) {
-        $_SESSION['tarefa_criada_sucesso'] = true;
-        $_SESSION['titulo'] = $titulo;
-    }
+/**
+ * Insere uma nova tarefa no banco de dados.
+ *
+ * @param mysqli $conn O objeto de conexão com o banco de dados.
+ * @param string $titulo O título da tarefa.
+ * @param string $descricao A descrição da tarefa.
+ * @param string $data_criacao A data que a tarefa foi criada.
+ * @return bool Retorna true se a busca for bem-sucedida, false caso contrário.
+ */
+
+function buscarTarefas(mysqli $conn , string $titulo, string $descricao, string $data_criacao): bool{
+    $stmt = $conn->prepare("SELECT * FROM tarefas");
+    $stmt->bind_param("sss", $titulo, $descricao, $data_criacao);
+    
+    $tarefasEncontradas = $stmt->execute();
 
     $stmt->close();
-    $conn->close();
 
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
+    return $tarefasEncontradas;
 }
